@@ -1,0 +1,59 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WanzhTrader AI</title>
+<style>
+body{margin:0;padding:20px;background:#08111f;color:#fff;font-family:Arial}
+h1{color:#35d6a1}
+.card{background:#142238;padding:18px;border-radius:14px;margin-top:15px}
+select,input,button{box-sizing:border-box;width:100%;padding:13px;margin:9px 0;border-radius:8px;font-size:16px}
+select,input{background:#08111f;color:white;border:1px solid #496078}
+button{background:#35d6a1;color:#08111f;font-weight:bold;border:0}
+img{max-width:100%;margin-top:12px;border-radius:8px}
+p{line-height:1.5;color:#c6d5e7}
+</style>
+</head>
+<body>
+<h1>WanzhTrader AI</h1>
+<p>Analisis screenshot chart MT5</p>
+<div class="card">
+<label>Instrumen</label>
+<select id="pair">
+<option>XAUUSD</option>
+<option>BTCUSD</option>
+</select>
+<label>Timeframe screenshot</label>
+<select id="tf">
+<option>M1</option><option>M5</option><option>M15</option>
+<option>M30</option><option>H1</option><option>H4</option>
+<option>D1</option><option>W1</option><option>MN1</option>
+</select>
+<label>Foto chart</label>
+<input id="photo" type="file" accept="image/*">
+<img id="preview" hidden>
+<button onclick="analyze()">SIAPKAN ANALISIS</button>
+<p id="result">Belum ada screenshot.</p>
+</div>
+<script>
+const photo=document.getElementById('photo');
+photo.onchange=()=>{
+ const f=photo.files[0];
+ if(!f)return;
+ const img=document.getElementById('preview');
+ img.src=URL.createObjectURL(f);
+ img.hidden=false;
+ document.getElementById('result').textContent='Gambar dipilih.';
+};
+function analyze(){
+ const f=photo.files[0];
+ const result=document.getElementById('result');
+ if(!f){result.textContent='Pilih screenshot terlebih dahulu.';return;}
+ result.textContent='Screenshot diterima. AI belum terhubung, jadi sinyal BUY/SELL, Entry, SL, dan TP belum dapat dihitung otomatis.';
+}
+</script>
+</body>
+</html>
+```

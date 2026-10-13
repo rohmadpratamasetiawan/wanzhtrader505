@@ -1,0 +1,77 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WanzhTrader AI</title>
+<style>
+body{margin:0;background:#08111f;color:#eef5ff;font-family:Arial,sans-serif;padding:20px}
+.card{background:#111e30;border:1px solid #263c55;border-radius:15px;padding:18px;margin:15px 0}
+h1{color:#35d6a1;font-size:27px}
+p{color:#b7c7dc;line-height:1.5}
+select,input,button{box-sizing:border-box;width:100%;padding:13px;margin:8px 0;border-radius:9px;font-size:16px}
+select,input{background:#091525;color:white;border:1px solid #38516d}
+button{background:#35d6a1;color:#06131a;font-weight:bold;border:0}
+#preview{max-width:100%;border-radius:10px;margin-top:10px}
+#result{white-space:pre-wrap;line-height:1.6}
+.small{font-size:12px;color:#91a6bf}
+</style>
+</head>
+<body>
+<h1>WanzhTrader AI</h1>
+<p>Analisis screenshot chart MT5 dari iPhone.</p>
+
+<div class="card">
+<label>Pilih instrumen</label>
+<select id="pair">
+<option>XAUUSD</option>
+<option>BTCUSD</option>
+</select>
+
+<label>Timeframe chart yang diunggah</label>
+<select id="tf">
+<option>M1</option><option>M5</option><option>M15</option>
+<option>M30</option><option>H1</option><option>H4</option>
+<option>D1</option><option>W1</option><option>MN1</option>
+</select>
+
+<label>Unggah screenshot MT5</label>
+<input id="photo" type="file" accept="image/*">
+<img id="preview" alt="Preview chart" hidden>
+
+<button onclick="prepare()">SIAPKAN ANALISIS</button>
+<div id="result">Menunggu screenshot chart...</div>
+</div>
+
+<div class="card">
+<b>Timeframe analisis</b>
+<p>M1 · M5 · M15 · M30 · H1 · H4 · D1 · W1 · MN1</p>
+<p class="small">Analisis AI belum terhubung. Tombol ini belum menghasilkan sinyal trading otomatis.</p>
+</div>
+
+<script>
+const photo=document.getElementById('photo');
+const preview=document.getElementById('preview');
+photo.addEventListener('change',()=>{
+ const f=photo.files[0];
+ if(!f)return;
+ preview.src=URL.createObjectURL(f);
+ preview.hidden=false;
+ document.getElementById('result').textContent=
+ 'Screenshot berhasil dipilih. Tekan SIAPKAN ANALISIS.';
+});
+function prepare(){
+ const f=photo.files[0];
+ const pair=document.getElementById('pair').value;
+ const tf=document.getElementById('tf').value;
+ const result=document.getElementById('result');
+ if(!f){result.textContent='Pilih screenshot chart terlebih dahulu.';return;}
+ result.textContent='Screenshot diterima di halaman ini. Instrumen: '+pair+
+ '. Timeframe screenshot: '+tf+
+ '. Untuk membaca chart dan menghasilkan BUY/SELL, Entry, SL, dan TP, layanan AI masih perlu dihubungkan.';
+}
+</script>
+</body>
+</html>
+```

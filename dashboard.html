@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WanzhTrader Dashboard</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080d18;color:#eef3ff;font-family:Arial,sans-serif;padding:18px}
+header,section{background:#111b2d;border:1px solid #293953;border-radius:14px;padding:18px;margin-bottom:16px}
+h1{font-size:25px;margin:0 0 8px}
+.blue{color:#65a0ff}
+.small{font-size:12px;color:#a3b3ce;line-height:1.6}
+.status{color:#ffcc70;font-weight:bold;font-size:13px}
+select,button{background:#1a2942;color:white;border:1px solid #3b4d6b;border-radius:8px;padding:12px}
+select{width:100%;margin:10px 0}
+button{cursor:pointer}
+button.active{background:#246bff}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row button{flex:1}
+.big{font-size:25px;font-weight:bold;margin:16px 0}
+.line{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #293953;font-size:14px}
+</style>
+</head>
+<body>
+<header>
+<h1>WANZH<span class="blue">TRADER</span></h1>
+<div class="small">SCALPING CENTER · XAUUSD & BTCUSD</div>
+<p class="status">● DASHBOARD ONLINE · DATA PASAR BELUM TERHUBUNG</p>
+</header>
+<section>
+<div class="small">PILIH INSTRUMEN</div>
+<select id="asset">
+<option value="XAUUSD">XAUUSD — GOLD</option>
+<option value="BTCUSD">BTCUSD — BITCOIN</option>
+</select>
+<div class="small">TIMEFRAME</div>
+<div class="row">
+<button onclick="tf('M5',this)">M5</button>
+<button class="active" onclick="tf('M15',this)">M15</button>
+<button onclick="tf('H1',this)">H1</button>
+<button onclick="tf('H4',this)">H4</button>
+</div>
+<div class="big" id="symbol">XAUUSD</div>
+<div class="small">HARGA LIVE</div>
+<div class="big">Belum tersedia</div>
+<div class="small">Harga live belum tersedia karena sumber data pasar belum dihubungkan.</div>
+</section>
+<section>
+<h3>HASIL ANALISIS</h3>
+<div class="big" id="signal">MENUNGGU DATA PASAR</div>
+<div class="line"><span>Instrumen</span><b id="instrument">XAUUSD</b></div>
+<div class="line"><span>Timeframe</span><b id="timeframe">M15</b></div>
+<div class="line"><span>Entry</span><b>Belum tersedia</b></div>
+<div class="line"><span>Take Profit</span><b>Belum tersedia</b></div>
+<div class="line"><span>Stop Loss</span><b>Belum tersedia</b></div>
+<p class="small">Sinyal belum dihitung karena data candle valid belum terhubung. Jangan gunakan tampilan ini sebagai sinyal trading nyata.</p>
+</section>
+<section>
+<h3>STATUS KONEKSI</h3>
+<div class="line"><span>Website</span><b class="blue">AKTIF</b></div>
+<div class="line"><span>Data harga pasar</span><b style="color:#ffcc70">BELUM TERHUBUNG</b></div>
+<div class="line"><span>MT5 Valetax</span><b style="color:#ffcc70">BELUM TERHUBUNG</b></div>
+<div class="line"><span>Eksekusi otomatis</span><b>NONAKTIF</b></div>
+</section>
+<script>
+function tf(value,button){
+document.querySelectorAll('.row button').forEach(b=>b.classList.remove('active'));
+button.classList.add('active');
+document.getElementById('timeframe').textContent=value;
+}
+document.getElementById('asset').addEventListener('change',function(){
+document.getElementById('symbol').textContent=this.value;
+document.getElementById('instrument').textContent=this.value;
+});
+</script>
+</body>
+</html>

@@ -1,1 +1,162 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WanzhTrader Scalping Center</title>
+<style>
+:root {
+  --bg:#080c14; --panel:#111827; --line:#263246;
+  --text:#edf3ff; --muted:#91a0b8; --green:#20e0a0;
+  --red:#ff6178; --blue:#65a8ff; --gold:#f5c56b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:22px 16px;border-bottom:1px solid var(--line);
+background:linear-gradient(135deg,#121e32,#080c14)}
+.brand{font-size:22px;font-weight:850;letter-spacing:.5px}
+.brand span{color:var(--green)}
+.sub{font-size:12px;color:var(--muted);margin-top:6px}
+.wrap{max-width:1050px;margin:auto;padding:16px}
+.status{display:flex;align-items:center;gap:8px;color:var(--gold);
+font-size:11px;font-weight:700;margin-bottom:16px}
+.dot{width:8px;height:8px;background:var(--gold);border-radius:50%}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);
+border-radius:16px;padding:15px;margin-bottom:12px;min-width:0}
+.label{font-size:11px;color:var(--muted);text-transform:uppercase;
+letter-spacing:1px}
+.value{font-size:23px;font-weight:800;margin-top:9px;overflow-wrap:anywhere}
+.small{font-size:12px;color:var(--muted);margin-top:7px}
+.section{font-size:16px;font-weight:800;margin:22px 0 12px}
+.tabs{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
+button,select{background:#172337;color:var(--text);
+border:1px solid #30415b;border-radius:10px;padding:11px 14px;
+font-size:13px;font-weight:700}
+button.active{background:#163c36;border-color:var(--green);color:var(--green)}
+select{width:100%;margin-top:8px}
+.signal{font-size:23px;font-weight:900;margin-top:10px}
+.buy{color:var(--green)} .sell{color:var(--red)}
+.rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.metric{background:#0b1220;border:1px solid var(--line);
+border-radius:10px;padding:12px}
+.metric .value{font-size:17px}
+.bar{height:7px;background:#263246;border-radius:10px;overflow:hidden;margin-top:12px}
+.fill{height:100%;width:50%;background:var(--green);border-radius:10px}
+.notice{font-size:12px;color:var(--muted);line-height:1.7}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.main{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;align-items:start}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">WANZH<span>TRADER</span></div>
+  <div style="font-size:14px;font-weight:700;margin-top:7px">SCALPING CENTER</div>
+  <div class="sub">Multi-Timeframe Analysis Dashboard</div>
+</header>
+
+<main class="wrap">
+  <div class="status"><span class="dot"></span>
+    MODE ANALISIS · DATA BELUM TERHUBUNG KE PASAR
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="label">Instrumen</div>
+      <select id="symbol" onchange="updateSymbol()">
+        <option value="XAUUSD">XAUUSD · Gold</option>
+        <option value="BTCUSD">BTCUSD · Bitcoin</option>
+      </select>
+      <div class="small">Harga live belum terhubung</div>
+    </div>
+    <div class="card">
+      <div class="label">Timeframe</div>
+      <select id="tf" onchange="updateTF()">
+        <option>M5</option><option selected>M15</option>
+        <option>H1</option><option>H4</option>
+      </select>
+      <div class="small" id="tftext">Kerangka analisis M15</div>
+    </div>
+    <div class="card">
+      <div class="label">Status Koneksi</div>
+      <div class="value" style="font-size:18px;color:var(--gold)">OFFLINE</div>
+      <div class="small">Feed pasar belum diatur</div>
+    </div>
+    <div class="card">
+      <div class="label">Trading Otomatis</div>
+      <div class="value" style="font-size:18px">NONAKTIF</div>
+      <div class="small">Tidak mengirim order MT5</div>
+    </div>
+  </div>
+
+  <div class="section">Multi-Timeframe Overview</div>
+  <div class="grid">
+    <div class="card"><div class="label">M5 · Scalping</div>
+      <div class="value" style="font-size:18px">Menunggu</div><div class="small">Data belum tersedia</div></div>
+    <div class="card"><div class="label">M15 · Entry</div>
+      <div class="value" style="font-size:18px">Menunggu</div><div class="small">Data belum tersedia</div></div>
+    <div class="card"><div class="label">H1 · Tren</div>
+      <div class="value" style="font-size:18px">Menunggu</div><div class="small">Data belum tersedia</div></div>
+    <div class="card"><div class="label">H4 · Arah Utama</div>
+      <div class="value" style="font-size:18px">Menunggu</div><div class="small">Data belum tersedia</div></div>
+  </div>
+
+  <div class="main">
+    <div>
+      <div class="section">Trading Signal Plan</div>
+      <div class="card">
+        <div class="label">Sinyal Terbaru</div>
+        <div class="signal" id="signal">BELUM ADA SINYAL</div>
+        <div class="small">Sinyal hanya ditampilkan setelah data pasar tersedia dan dianalisis.</div>
+        <div class="rows">
+          <div class="metric"><div class="label">Entry</div><div class="value">—</div></div>
+          <div class="metric"><div class="label">Stop Loss</div><div class="value">—</div></div>
+          <div class="metric"><div class="label">Take Profit 1</div><div class="value">—</div></div>
+          <div class="metric"><div class="label">Take Profit 2</div><div class="value">—</div></div>
+          <div class="metric"><div class="label">Take Profit 3</div><div class="value">—</div></div>
+          <div class="metric"><div class="label">Risk / Reward</div><div class="value">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section">Risk Management</div>
+      <div class="card">
+        <div class="label">Risk Status</div>
+        <div class="value" style="font-size:18px;color:var(--gold)">BELUM DIHITUNG</div>
+        <div class="bar"><div class="fill" style="width:0%"></div></div>
+        <div class="small">Risiko baru bisa dihitung dari harga entry dan SL yang valid.</div>
+      </div>
+      <div class="section">Market Checklist</div>
+      <div class="card">
+        <p class="notice">○ Harga pasar tersedia</p>
+        <p class="notice">○ Tren multi-timeframe terkonfirmasi</p>
+        <p class="notice">○ Support dan resistance terdeteksi</p>
+        <p class="notice">○ Entry, SL dan TP tervalidasi</p>
+        <p class="notice">○ Spread dan risiko diperiksa</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="label">Catatan Sistem</div>
+    <p class="notice">Dashboard ini merupakan antarmuka analisis. Saat ini tidak mengambil harga live, tidak menghasilkan sinyal trading terverifikasi, dan tidak terhubung ke MetaTrader 5. Jangan menggunakan angka contoh sebagai dasar transaksi. Integrasi feed pasar dan backend diperlukan untuk fungsi real-time.</p>
+  </div>
+</main>
+<footer>WANZHTRADER SCALPING CENTER · ANALYSIS MODE</footer>
+
+<script>
+function updateSymbol(){
+  document.getElementById('signal').textContent='BELUM ADA SINYAL';
+}
+function updateTF(){
+  document.getElementById('tftext').textContent=
+    'Kerangka analisis '+document.getElementById('tf').value;
+}
+</script>
+</body>
+</html>

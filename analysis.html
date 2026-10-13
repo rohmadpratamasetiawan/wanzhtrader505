@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WanzhTrader Analysis</title>
+<style>
+body{margin:0;padding:18px;background:#080d18;color:#eef3ff;font-family:Arial}
+.card{background:#111b2d;border:1px solid #293953;border-radius:14px;padding:18px;margin-bottom:14px}
+h1{font-size:24px}
+label{display:block;margin-top:14px}
+select,button{width:100%;padding:12px;margin-top:8px;border-radius:8px;border:1px solid #3b4d6b;background:#1a2942;color:white}
+.blue{color:#65a0ff}
+.warning{color:#ffcc70}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>WANZH<span class="blue">TRADER</span></h1>
+<p>SCALPING ANALYSIS CENTER</p>
+<p class="warning">STATUS: MENUNGGU DATA PASAR</p>
+</div>
+<div class="card">
+<label>Instrumen</label>
+<select id="asset">
+<option value="XAUUSD">XAUUSD — GOLD</option>
+<option value="BTCUSD">BTCUSD — BITCOIN</option>
+</select>
+<label>Timeframe</label>
+<select id="tf">
+<option>M5</option>
+<option selected>M15</option>
+<option>H1</option>
+<option>H4</option>
+</select>
+</div>
+<div class="card">
+<h3>HASIL ANALISIS</h3>
+<p id="symbol">Instrumen: XAUUSD</p>
+<p id="timeframe">Timeframe: M15</p>
+<h2 class="warning">BELUM ADA SINYAL</h2>
+<p>Data candle belum tersedia. Entry, TP dan SL belum dihitung.</p>
+</div>
+<div class="card">
+<h3>KONEKSI</h3>
+<p>Website: <span class="blue">AKTIF</span></p>
+<p>Harga live: <span class="warning">BELUM TERHUBUNG</span></p>
+<p>MT5 Valetax: <span class="warning">BELUM TERHUBUNG</span></p>
+<p>EA otomatis: NONAKTIF</p>
+</div>
+<script>
+const asset=document.getElementById('asset');
+const tf=document.getElementById('tf');
+function update(){
+ document.getElementById('symbol').textContent='Instrumen: '+asset.value;
+ document.getElementById('timeframe').textContent='Timeframe: '+tf.value;
+}
+asset.addEventListener('change',update);
+tf.addEventListener('change',update);
+</script>
+</body>
+</html>
